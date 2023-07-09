@@ -1,25 +1,28 @@
+import { useCallback, useState } from "react";
 import Todos from "./Todos";
-import { useState } from "react";
-import React from "react";
 
-function App() {
+const App = () => {
   const [count, setCount] = useState(0);
-  const [todos, setTodos] = useState(["todo 1", "todo 2"]);
+  const [todos, setTodos] = useState([]);
 
   const increment = () => {
     setCount((c) => c + 1);
   };
 
+  const addTodo = useCallback(() => {
+    setTodos((t) => [...t, "New Todo"]);
+  }, [todos]);
+
   return (
     <>
-      <Todos todos={todos} />
+      <Todos todos={todos} todoEkle={addTodo} />
       <hr />
       <div>
-        Sayaç: {count}
+        Count: {count}
         <button onClick={increment}>+</button>
       </div>
     </>
   );
-}
+};
 
 export default App;
